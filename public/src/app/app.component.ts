@@ -7,21 +7,22 @@ import { HttpService } from './http.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(
-    private _http: HttpService,
-  ) {}
-  
-  user_id = '';
+  user_id: string = '';
   found_data = {
     'uniqueId': 0,
     'code': 0
   };
 
+  constructor(
+    private _http: HttpService,
+  ) {}
+
   onSubmit(form) {
     this._http.passID(this.user_id)
     .then(obj => {
+      console.log(obj);
       this.found_data = obj;
     })
-    .catch(err => { console.log('ERROR:', err); })
+    .catch(err => { this.found_data.code = 1; })
   }
 }

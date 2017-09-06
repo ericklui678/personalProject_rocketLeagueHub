@@ -19,52 +19,6 @@ app.get('/player/:id', function(req, res) {
   })
 });
 
-// client.getPlatformsData(function(status, data){
-//   if(status === 200){
-//     console.log('-- Platforms data:');
-//     console.log(data);
-//   }
-// });
-//
-// client.getSeasonsData(function(status, data){
-//   if(status === 200){
-//     console.log('-- Seasons data:');
-//     console.log(data);
-//   }
-// });
-//
-// client.getTiersData(function(status, data){
-//   if(status === 200){
-//     console.log("-- Tiers data:");
-//     console.log(data);
-//   }
-// });
-
-// client.searchPlayers("lord", function(status, data){
-//   if(status === 200){
-//     console.log("-- Player Search Data:");
-//     console.log("   Results: " + data.results);
-//     console.log("   Total Results: " + data.totalResults);
-//     console.log(data)
-//   }
-// });
-
-// client.getRankedLeaderboard(rls.rankedPlaylists.DUEL, function(status, data){
-//   if(status === 200){
-//     console.log("-- Ranked Leaderboard:");
-//     console.log("   Leaderboard count: " + data.length);
-//     console.log("   Duel Number #1 Player: " + data[0].displayName);
-//   }
-// });
-
-// client.getStatLeaderboard(rls.statType.GOALS, function(status, data){
-//   if(status === 200){
-//     console.log("-- Stat Goals Leaderboard:");
-//     console.log("   Leaderboard count: " + data.length);
-//     console.log("   Goals #1 Player: " + data[0].displayName);
-//   }
-// });
-
 var server = app.listen(app.get('port'), function() {
   console.log('Running on port', app.get('port'));
 })
