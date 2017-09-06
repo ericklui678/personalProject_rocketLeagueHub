@@ -9,8 +9,9 @@ export class HttpService {
     private _http: Http,
   ) { }
 
-  passID(user_id) {
-    return this._http.get('/player/' + user_id)
+  passID(obj) {
+    console.log(obj);
+    return this._http.get('/player/' + obj.uid + '/' + obj.pid)
     .map( data => data.json() )
     .toPromise();
   }

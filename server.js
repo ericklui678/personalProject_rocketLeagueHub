@@ -13,8 +13,8 @@ app.use(bodyParser.json())
 app.set('port', (process.env.PORT || port))
 app.use(express.static(__dirname + '/public/dist'));
 
-app.get('/player/:id', function(req, res) {
-  client.getPlayer(req.params.id, 1, function(status, data){
+app.get('/player/:uid/:pid', function(req, res) {
+  client.getPlayer(req.params.uid, req.params.pid, function(status, data){
     res.json(data);
   })
 });

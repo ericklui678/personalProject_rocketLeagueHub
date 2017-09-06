@@ -27,22 +27,22 @@
 <div class="container mt-5">
     <form (submit)="onSubmit(formData)" #formData="ngForm" class="">
       <div class="row">
-        <!-- <div class="col"> -->
-          <img class="icons img-thumbnail" src="/assets/images/steam.png" alt="steam icon">
-          <img class="icons img-thumbnail" src="/assets/images/xbox.png" alt="xbox icon">
-          <img class="icons img-thumbnail" src="/assets/images/playstation.png" alt="playstation icon">
-        <!-- </div> -->
+        <img class="icons img-thumbnail" src="/assets/images/steam.png" alt="steam icon"
+        [ngClass]="{ 'op-none': platform[0], 'op-3': !platform[0] }"
+        (click)="setPlatform(0)">
+        <img class="icons img-thumbnail" src="/assets/images/playstation.png" alt="playstation icon"
+        [ngClass]="{ 'op-none': platform[1], 'op-3': !platform[1] }"
+        (click)="setPlatform(1)">
+        <img class="icons img-thumbnail mr-2" src="/assets/images/xbox.png" alt="xbox icon" [ngClass]="{ 'op-none': platform[2], 'op-3': !platform[2] }"
+          (click)="setPlatform(2)">
         <div class="col rm-pad">
           <input class="form-control" type="text" placeholder="Enter Steam Community ID"
           name="id"
           [(ngModel)]="user_id">
         </div>
-        <!-- <div class="col"> -->
           <button class="btn btn-primary">Search</button>
-        <!-- </div> -->
       </div>
     </form>
   <div *ngIf="found_data.uniqueId">{{ found_data | json }}</div>
   <div *ngIf="found_data.code">Sorry, we can't find the specified player</div>
 </div>
-

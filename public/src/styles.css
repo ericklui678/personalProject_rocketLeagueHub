@@ -11,3 +11,15 @@
 .form-control {
     height: 40px;
 }
+
+.img-thumbnail {
+    border: none;
+}
+
+.op-none {
+    opacity: 1;
+}
+
+.op-3 {
+    opacity: 0.3;
+}
