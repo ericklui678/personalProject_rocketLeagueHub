@@ -10,8 +10,9 @@ export class AppComponent {
   platform: [boolean] = [true, false, false]
   user_id: string = '';
   platform_id: string = '1';
+
   found_data = {
-    'uniqueId': 0,
+    'signatureUrl': 0,
     'code': 0
   };
 
