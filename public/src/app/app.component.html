@@ -20,37 +20,59 @@
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <input class="form-control mr-sm-2" type="text" placeholder="Login" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login Here</button>
       </form>
     </div>
   </nav>
 
   <div class="container mt-5">
-      <form (submit)="onSubmit(formData)" #formData="ngForm" class="">
-        <div class="row">
-          <img class="icons img-thumbnail" src="/assets/images/steam.png" alt="steam icon"
-          [ngClass]="{ 'op-none': platform[0], 'op-3': !platform[0] }"
-          (click)="setPlatform(0)">
-          <img class="icons img-thumbnail" src="/assets/images/playstation.png" alt="playstation icon"
-          [ngClass]="{ 'op-none': platform[1], 'bg-blue': platform[1], 'op-3': !platform[1] }"
-          (click)="setPlatform(1)">
-          <img class="icons img-thumbnail" src="/assets/images/xbox.png" alt="xbox icon" [ngClass]="{ 'op-none': platform[2], 'bg-green': platform[2], 'op-3': !platform[2] }"
-            (click)="setPlatform(2)">
-          <div class="col rm-pad">
-            <input class="form-control px-40" type="text" placeholder="Enter Steam Community ID, PSN, or Xbox gamer tags"
-            name="id"
-            [(ngModel)]="user_id">
-          </div>
-            <button class="btn btn-primary">Search</button>
+    <form (submit)="onSubmit(formData)" #formData="ngForm" class="">
+      <div class="row">
+        <img class="icons img-thumbnail" src="/assets/images/steam.png" alt="steam icon"
+        [ngClass]="{ 'op-none': platform[0], 'op-3': !platform[0] }"
+        (click)="setPlatform(0)">
+        <img class="icons img-thumbnail" src="/assets/images/playstation.png" alt="playstation icon"
+        [ngClass]="{ 'op-none': platform[1], 'bg-blue': platform[1], 'op-3': !platform[1] }"
+        (click)="setPlatform(1)">
+        <img class="icons img-thumbnail" src="/assets/images/xbox.png" alt="xbox icon" [ngClass]="{ 'op-none': platform[2], 'bg-green': platform[2], 'op-3': !platform[2] }"
+          (click)="setPlatform(2)">
+        <div class="col rm-pad">
+          <input class="form-control px-40" type="text" placeholder="Enter Steam Community ID, PSN, or Xbox gamer tags"
+          name="id"
+          [(ngModel)]="user_id">
         </div>
-      </form>
-      <div class="row mt-2">
-        <img *ngIf="found_data.signatureUrl" src="{{ found_data.signatureUrl }}" alt="signature img">
-        <div *ngIf="found_data.code" class="error col bg-danger text-white pt-2">
-          <span>Sorry, we can't find the specified player</span>
-        </div>
+          <button class="btn btn-primary">Search</button>
       </div>
+    </form>
+    <div class="row mt-2">
+      <div *ngIf="found_data.code" class="error col bg-danger text-white pt-2">
+        <span>Sorry, we can't find the specified player</span>
+      </div>
+    </div>
+  </div> <!-- container mt-5 -->
+
+  <div *ngIf="found_data.uniqueId" class="container mt-2 bg-dark">
+    <h3 class="row p-3 name-title">{{ found_data.displayName }}</h3>
+    <div class="row p-3">
+      <div class="col avatar">
+        <img src="{{ found_data.avatar }}" alt="avatar">
+      </div>
+      <div class="col text-center">
+        <h5>Solo</h5>
+        <p>Unranked</p>
+      </div>
+      <div class="col text-center">
+        <h5>Doubles</h5>
+      </div>
+      <div class="col text-center">
+        <h5>Solo Standard</h5>
+      </div>
+      <div class="col text-center">
+        <h5>Standard</h5>
+      </div>
+    </div>
   </div>
-</div>
+
+</div> <!-- app-component -->
 

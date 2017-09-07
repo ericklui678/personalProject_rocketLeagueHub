@@ -4,8 +4,25 @@ body {
     background-image: url('/assets/images/rlbackground2.jpg');
 }
 
+h5 {
+    margin-bottom: 0;
+}
+
+.name-title {
+    border-bottom: 3px solid white;
+    margin-bottom: 0;
+}
+
+.avatar {
+    padding-left: 0;
+}
+
 .app-component {
     border: 3px solid white;
+}
+
+.container {
+    border: 3px solid orange;
 }
 
 .error {
