@@ -53,9 +53,13 @@ export class AppComponent {
   onSubmit(form) {
     this._http.passID({'uid': this.user_id, 'pid': this.platform_id})
     .then(obj => {
-      console.log('API DATA', obj);
-      this.found = true;
-      this.setUserStats(obj);
+      if (obj.code === 404) {
+        this.found = false;
+      } else {
+        console.log('API DATA', obj);
+        this.found = true;
+        this.setUserStats(obj);
+      }
     })
     .catch(err => { console.log('ERROR -->', err);
     ; })
@@ -75,45 +79,47 @@ export class AppComponent {
   }
 
   setUserStats(obj) {
-    let season5 = obj['rankedSeasons']['5'];
-
     this.stats.name = obj.displayName;
     this.stats.avatar = obj.avatar;
 
-    if (season5['10']){
-      var tier_data = this.getTier(season5['10']['tier']);
-      this.stats.solo.tier = tier_data.title;
-      this.stats.solo.icon = tier_data.icon;
-      this.stats.solo.division = this.getDivision(season5['10']['division']);
-      this.stats.solo.matches = season5['10']['matchesPlayed'];
-      this.stats.solo.rating = season5['10']['rankPoints'];
-    }
-    
-    if (season5['11']) {
-      var tier_data = this.getTier(season5['11']['tier']);
-      this.stats.doubles.tier = tier_data.title;
-      this.stats.doubles.icon = tier_data.icon;
-      this.stats.doubles.division = this.getDivision(season5['11']['division']);
-      this.stats.doubles.matches = season5['11']['matchesPlayed'];
-      this.stats.doubles.rating = season5['11']['rankPoints'];
-    }
+    if (obj['rankedSeasons']['5']) {
+      let season5 = obj['rankedSeasons']['5'];
 
-    if (season5['12']) {
-      var tier_data = this.getTier(season5['12']['tier']);
-      this.stats.solo_standard.tier = tier_data.title;
-      this.stats.solo_standard.icon = tier_data.icon;
-      this.stats.solo_standard.division = this.getDivision(season5['12']['division']);
-      this.stats.solo_standard.matches = season5['12']['matchesPlayed'];
-      this.stats.solo_standard.rating = season5['12']['rankPoints'];
-    }
+      if (season5['10']) {
+        var tier_data = this.getTier(season5['10']['tier']);
+        this.stats.solo.tier = tier_data.title;
+        this.stats.solo.icon = tier_data.icon;
+        this.stats.solo.division = this.getDivision(season5['10']['division']);
+        this.stats.solo.matches = season5['10']['matchesPlayed'];
+        this.stats.solo.rating = season5['10']['rankPoints'];
+      }
 
-    if (season5['13']) {
-      tier_data = this.getTier(season5['13']['tier']);
-      this.stats.standard.tier = tier_data.title;
-      this.stats.standard.icon = tier_data.icon;
-      this.stats.standard.division = this.getDivision(season5['13']['division']);
-      this.stats.standard.matches = season5['13']['matchesPlayed'];
-      this.stats.standard.rating = season5['13']['rankPoints'];
+      if (season5['11']) {
+        var tier_data = this.getTier(season5['11']['tier']);
+        this.stats.doubles.tier = tier_data.title;
+        this.stats.doubles.icon = tier_data.icon;
+        this.stats.doubles.division = this.getDivision(season5['11']['division']);
+        this.stats.doubles.matches = season5['11']['matchesPlayed'];
+        this.stats.doubles.rating = season5['11']['rankPoints'];
+      }
+
+      if (season5['12']) {
+        var tier_data = this.getTier(season5['12']['tier']);
+        this.stats.solo_standard.tier = tier_data.title;
+        this.stats.solo_standard.icon = tier_data.icon;
+        this.stats.solo_standard.division = this.getDivision(season5['12']['division']);
+        this.stats.solo_standard.matches = season5['12']['matchesPlayed'];
+        this.stats.solo_standard.rating = season5['12']['rankPoints'];
+      }
+
+      if (season5['13']) {
+        tier_data = this.getTier(season5['13']['tier']);
+        this.stats.standard.tier = tier_data.title;
+        this.stats.standard.icon = tier_data.icon;
+        this.stats.standard.division = this.getDivision(season5['13']['division']);
+        this.stats.standard.matches = season5['13']['matchesPlayed'];
+        this.stats.standard.rating = season5['13']['rankPoints'];
+      }
     }
     console.log('FOUND STATS', this.stats)
   }
