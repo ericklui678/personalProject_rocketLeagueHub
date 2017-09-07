@@ -4,6 +4,7 @@ body {
     background-image: url('/assets/images/rlbackground2.jpg');
 }
 
+
 h5 {
     margin-bottom: 0;
     font-size: 12pt;
@@ -19,8 +20,13 @@ span {
     margin-bottom: 0;
 }
 
+.col-12 .avatar {
+    margin: auto;
+    margin-bottom: 20px;
+}
+
 .avatar {
-    padding-left: 0;
+    padding-left: 0px;
 }
 
 .app-component {
