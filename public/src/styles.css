@@ -25,11 +25,11 @@ span {
 
 .app-component {
     border: 3px solid white;
-}
+} 
 
-.container {
+/* .container {
     border: 3px solid orange;
-}
+} */
 
 .error {
     border-radius: 3px;
