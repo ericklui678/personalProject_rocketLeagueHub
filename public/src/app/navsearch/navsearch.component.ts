@@ -58,9 +58,9 @@ export class NavsearchComponent{
     private _router: Router,
   ) { }
 
-  register() {
-    this._router.navigate(['register']);
-  }
+  // register() {
+  //   this._router.navigate(['register']);
+  // }
 
   onSubmit(form) {
     this._http.passID({ 'uid': this.user_id, 'pid': this.platform_id })
