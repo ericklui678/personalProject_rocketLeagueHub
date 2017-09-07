@@ -5,12 +5,19 @@ import { HttpModule } from '@angular/http';
 import { HttpService } from './http.service';
 
 import { AppComponent } from './app.component';
+import { RegisterComponent } from './register/register.component';
+
+import { AppRoutingModule } from './app-routing.module';
+import { NavsearchComponent } from './navsearch/navsearch.component'
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RegisterComponent,
+    NavsearchComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     FormsModule,
     HttpModule,
