@@ -85,16 +85,7 @@ export class AppComponent {
   }
 
   setUserStats(obj) {
-    this.stats.name = obj.displayName;
-    this.stats.avatar = obj.avatar;
-
-    this.stats.assists = obj.stats.assists;
-    this.stats.goals = obj.stats.goals;
-    this.stats.mvps = obj.stats.mvps;
-    this.stats.saves = obj.stats.saves;
-    this.stats.shots = obj.stats.shots;
-    this.stats.wins = obj.stats.wins;
-
+    // if found player competed in season 5, set stats
     if (obj['rankedSeasons']['5']) {
       let season5 = obj['rankedSeasons']['5'];
 
@@ -132,7 +123,55 @@ export class AppComponent {
         this.stats.standard.division = this.getDivision(season5['13']['division']);
         this.stats.standard.matches = season5['13']['matchesPlayed'];
         this.stats.standard.rating = season5['13']['rankPoints'];
+      } else { // if searching another player did not compete in season 5, reset stats to default
+        this.stats = {
+          'name': '',
+          'avatar': '',
+          'solo': {
+            'tier': 'Unranked',
+            'icon': this.unranked,
+            'division': 'Division I',
+            'matches': 0,
+            'rating': 0,
+          },
+          'doubles': {
+            'tier': 'Unranked',
+            'icon': this.unranked,
+            'division': 'Division I',
+            'matches': 0,
+            'rating': 0,
+          },
+          'solo_standard': {
+            'tier': 'Unranked',
+            'icon': this.unranked,
+            'division': 'Division I',
+            'matches': 0,
+            'rating': 0,
+          },
+          'standard': {
+            'tier': 'Unranked',
+            'icon': this.unranked,
+            'division': 'Division I',
+            'matches': 0,
+            'rating': 0,
+          },
+          'assists': 0,
+          'goals': 0,
+          'mvps': 0,
+          'saves': 0,
+          'shots': 0,
+          'wins': 0,
+        }
       }
+      this.stats.name = obj.displayName;
+      this.stats.avatar = obj.avatar;
+
+      this.stats.assists = obj.stats.assists;
+      this.stats.goals = obj.stats.goals;
+      this.stats.mvps = obj.stats.mvps;
+      this.stats.saves = obj.stats.saves;
+      this.stats.shots = obj.stats.shots;
+      this.stats.wins = obj.stats.wins;
     }
     console.log('FOUND STATS', this.stats)
   }
