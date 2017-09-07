@@ -1,6 +1,6 @@
 <div class="app-component text-white">
   APP-COMPONENT
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark black-opacity">
     <a class="navbar-brand" href="#"><i class="fa fa-home" aria-hidden="true"></i> RLHub</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
       aria-expanded="false" aria-label="Toggle navigation">
@@ -14,14 +14,16 @@
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Login" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login Here</button>
+        <input class="form-control mr-sm-2" type="text" name="email" placeholder="Email">
+        <input class="form-control mr-sm-2" type="text" name="password" placeholder="Password">
+        <button class="btn btn-outline-primary my-2 my-sm-0 mr-2" type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
       </form>
+      <button class="btn btn-outline-success my-2 my-sm-0"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up?</button>
     </div>
   </nav>
 
   <div class="container mt-5">
-    <form (submit)="onSubmit(formData)" #formData="ngForm" class="">
+    <form (submit)="onSubmit(formData)" #formData="ngForm">
       <div class="row">
         <img class="icons img-thumbnail" src="/assets/images/steam.png" alt="steam icon"
         [ngClass]="{ 'op-none': platform[0], 'op-3': !platform[0] }"
@@ -41,12 +43,12 @@
     </form>
     <div class="row mt-2">
       <div *ngIf="found === false" class="error col bg-danger text-white pt-2">
-        <span>Sorry, we can't find the specified player</span>
+        <span>Sorry, we can't find the specified player. Try entering a steam community id (e.g. 76561197988132185)</span>
       </div>
     </div>
   </div> <!-- container mt-5 -->
 
-  <div *ngIf="found" class="container mt-2 bg-dark">
+  <div *ngIf="found" class="container mt-2 black-opacity">
     <div class="row p-3 white-border-bottom">
       <div class="col col-name">
          <h3>{{ stats.name }}</h3>

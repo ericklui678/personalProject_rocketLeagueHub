@@ -59,7 +59,7 @@ export class AppComponent {
   onSubmit(form) {
     this._http.passID({'uid': this.user_id, 'pid': this.platform_id})
     .then(obj => {
-      if (obj.code === 404) {
+      if (obj.code === 404 || obj.code === 500) {
         this.found = false;
       } else {
         console.log('API DATA', obj);
