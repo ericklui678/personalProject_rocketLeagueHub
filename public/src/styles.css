@@ -6,6 +6,12 @@ body {
 
 h5 {
     margin-bottom: 0;
+    font-size: 12pt;
+    font-weight: 400pt;
+}
+
+span {
+    font-size: 10pt;
 }
 
 .name-title {
