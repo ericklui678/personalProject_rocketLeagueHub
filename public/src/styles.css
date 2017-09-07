@@ -4,7 +4,6 @@ body {
     background-image: url('/assets/images/rlbackground2.jpg');
 }
 
-
 h5 {
     margin-bottom: 0;
     font-size: 12pt;
@@ -15,9 +14,13 @@ span {
     font-size: 10pt;
 }
 
-.name-title {
+.white-border-bottom {
     border-bottom: 3px solid white;
     margin-bottom: 0;
+}
+
+.col-name {
+    padding-left: 0;
 }
 
 .col-12 .avatar {

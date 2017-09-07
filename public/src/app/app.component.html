@@ -1,7 +1,7 @@
 <div class="app-component text-white">
   APP-COMPONENT
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">RLHub</a>
+    <a class="navbar-brand" href="#"><i class="fa fa-home" aria-hidden="true"></i> RLHub</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,14 +9,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <!-- <li class="nav-item active">
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
@@ -42,7 +39,7 @@
           name="id"
           [(ngModel)]="user_id">
         </div>
-          <button class="btn btn-primary">Search</button>
+          <button class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
       </div>
     </form>
     <div class="row mt-2">
@@ -53,8 +50,15 @@
   </div> <!-- container mt-5 -->
 
   <div *ngIf="found" class="container mt-2 bg-dark">
-    <h3 class="row p-3 name-title">{{ stats.name }}</h3>
-    <div class="row p-3">
+    <div class="row p-3 white-border-bottom">
+      <div class="col col-name">
+         <h3>{{ stats.name }}</h3>
+      </div>
+      <div class="col text-right">
+        <button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Follow</button>
+      </div>
+    </div>
+    <div class="row p-3 white-border-bottom">
       <div class="col-sm col-12 avatar">
         <img class="img-fluid d-block avatar" src="{{ stats.avatar }}" alt="No Avatar">
       </div>
@@ -91,6 +95,32 @@
         <span class="d-block">{{ stats.standard.matches }}</span>
       </div>
     </div> <!-- row -->
+    <div class="row p-3">
+      <div class="col-sm col-4 text-center">
+        <img class="img-fluid" src="/assets/images/stats/wins.png">
+        <span>{{ stats.wins }} Wins</span>
+      </div>
+      <div class="col-sm col-4 text-center">
+        <img class="img-fluid" src="/assets/images/stats/goals.png">
+        <span>{{ stats.goals }} Goals</span>
+      </div>
+      <div class="col-sm col-4 text-center">
+        <img class="img-fluid" src="/assets/images/stats/mvps.png">
+        <span>{{ stats.mvps }} MVPs</span>
+      </div>
+      <div class="col-sm col-4 text-center">
+        <img class="img-fluid" src="/assets/images/stats/saves.png">
+        <span>{{ stats.saves }} Saves</span>
+      </div>
+      <div class="col-sm col-4 text-center">
+        <img class="img-fluid" src="/assets/images/stats/shots.png">
+        <span>{{ stats.shots }} Shots</span>
+      </div>
+      <div class="col-sm col-4 text-center">
+        <img class="img-fluid" src="/assets/images/stats/assists.png">
+        <span>{{ stats.assists }} Assists</span>
+      </div>
+    </div>
   </div> <!-- container -->
 
 </div> <!-- app-component -->

@@ -44,6 +44,12 @@ export class AppComponent {
       'matches': 0,
       'rating': 0,
     },
+    'assists': 0,
+    'goals': 0,
+    'mvps': 0,
+    'saves': 0,
+    'shots': 0,
+    'wins': 0,
   }
 
   constructor(
@@ -81,6 +87,13 @@ export class AppComponent {
   setUserStats(obj) {
     this.stats.name = obj.displayName;
     this.stats.avatar = obj.avatar;
+
+    this.stats.assists = obj.stats.assists;
+    this.stats.goals = obj.stats.goals;
+    this.stats.mvps = obj.stats.mvps;
+    this.stats.saves = obj.stats.saves;
+    this.stats.shots = obj.stats.shots;
+    this.stats.wins = obj.stats.wins;
 
     if (obj['rankedSeasons']['5']) {
       let season5 = obj['rankedSeasons']['5'];
