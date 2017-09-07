@@ -2,6 +2,7 @@
 
 body {
     background-image: url('/assets/images/rlbackground2.jpg');
+    color: white;
 }
 
 h5 {
@@ -36,7 +37,7 @@ span {
     padding-left: 0px;
 }
 
-.navsearch-component {
+.white-border {
     border: 3px solid white;
 } 
 
