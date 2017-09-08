@@ -7,7 +7,17 @@ import { Component } from '@angular/core';
 })
 export class RegisterComponent{
 
+  user = {
+    'username': '',
+    'email': '',
+    'password': '',
+  }
+
   constructor() { }
 
-
+  onSubmit(form) {
+    if (form.valid) {
+      console.log('submitting');
+    }
+  }
 }

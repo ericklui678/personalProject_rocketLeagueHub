@@ -1,3 +1,45 @@
-<div class="white-border">
+<div class="white-border register-component">
   REGISTER-COMPONENT
+  <div class="container black-opacity py-3">
+    <h3 class="text-center mb-3">Register</h3>
+    <form (submit)="onSubmit(formData)" id="needs-validation" #formData="ngForm" novalidate>
+      <div class="form-group col-6 mx-auto">
+        <input type="text" class="form-control" name="username" placeholder="Username"
+        [(ngModel)]=user.username
+        #username="ngModel"
+        required
+        maxlength="25">
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="bg-danger rounded p-1">
+          <div *ngIf="username.errors.required">First name is required</div>
+        </div>
+      </div>
+      <div class="form-group col-6 mx-auto">
+        <input type="text" class="form-control" name="email" placeholder="Email"
+        [(ngModel)]=user.email
+        #email="ngModel"
+        required
+        pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$">
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="bg-danger rounded p-1">
+          <div *ngIf="email.errors.required">Email is required</div>
+          <div *ngIf="email.errors.pattern">Email is invalid format</div>
+        </div>
+      </div>
+      <div class="form-group col-6 mx-auto">
+        <input type="password" class="form-control" name="password" placeholder="Password"
+        [(ngModel)]="user.password"
+        #password="ngModel"
+        required
+        minlength="8"
+        >
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="bg-danger rounded p-1">
+          <div *ngIf=password.errors.required>Password is required</div>
+          <div *ngIf="password.errors.minlength">Password must be at least 8 characters</div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <button type="submit" [disabled]="!formData.valid" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
 </div>
+
