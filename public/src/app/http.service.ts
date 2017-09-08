@@ -14,4 +14,11 @@ export class HttpService {
     .map( data => data.json() )
     .toPromise();
   }
+
+  registerUser(obj) {
+    console.log('SERVICE', obj);
+    return this._http.post('/user/create', obj)
+    .map( data => data.json() )
+    .toPromise();
+  }
 }

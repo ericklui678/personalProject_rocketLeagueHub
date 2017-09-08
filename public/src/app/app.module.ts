@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms'
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -6,9 +7,10 @@ import { HttpService } from './http.service';
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
+import { NavsearchComponent } from './navsearch/navsearch.component'
 
 import { AppRoutingModule } from './app-routing.module';
-import { NavsearchComponent } from './navsearch/navsearch.component'
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,7 @@ import { NavsearchComponent } from './navsearch/navsearch.component'
     FormsModule,
     HttpModule,
   ],
-  providers: [HttpService],
+  providers: [HttpService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

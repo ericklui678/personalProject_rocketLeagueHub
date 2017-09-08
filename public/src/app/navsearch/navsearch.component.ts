@@ -70,7 +70,7 @@ export class NavsearchComponent{
       })
       .catch(err => {
         console.log('ERROR -->', err);
-        ;
+      
       })
   }
 
