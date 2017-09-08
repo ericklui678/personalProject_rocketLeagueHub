@@ -33,6 +33,7 @@ export class RegisterComponent{
       if (obj.err) {
         this.email_exists = true;
       } else {
+        this._cookie.set('username', obj.username);
         this._router.navigate(['']);
       }
     })

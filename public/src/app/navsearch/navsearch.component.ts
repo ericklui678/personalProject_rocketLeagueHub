@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpService } from './../http.service';
 
-
 @Component({
   selector: 'app-navsearch',
   templateUrl: './navsearch.component.html',
@@ -70,7 +69,6 @@ export class NavsearchComponent{
       })
       .catch(err => {
         console.log('ERROR -->', err);
-      
       })
   }
 
