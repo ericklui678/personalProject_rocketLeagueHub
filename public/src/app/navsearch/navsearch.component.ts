@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpService } from './../http.service';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-navsearch',
@@ -55,17 +55,12 @@ export class NavsearchComponent{
 
   constructor(
     private _http: HttpService,
-    private _router: Router,
   ) { }
-
-  // register() {
-  //   this._router.navigate(['register']);
-  // }
 
   onSubmit(form) {
     this._http.passID({ 'uid': this.user_id, 'pid': this.platform_id })
       .then(obj => {
-        if (obj.code === 404 || obj.code === 500) {
+        if (obj.code === 400 || obj.code === 404 || obj.code === 500) {
           this.found = false;
         } else {
           console.log('API DATA', obj);
