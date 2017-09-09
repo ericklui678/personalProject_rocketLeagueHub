@@ -26,7 +26,7 @@ export class AppComponent {
   }
 
   logout() {
-    this._cookie.delete('username');
+    this._cookie.deleteAll();
     this._nameService.clearName();
   }
 

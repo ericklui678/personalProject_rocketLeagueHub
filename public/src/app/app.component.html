@@ -1,5 +1,4 @@
 <div class="white-border">
-  <!-- <div *ngIf="username">{{ username }}</div> -->
   APP-COMPONENT
   <nav class="navbar navbar-expand-sm navbar-dark black-opacity">
     <a class="navbar-brand" href="/"><i class="fa fa-home" aria-hidden="true"></i> RLHub</a>
@@ -10,9 +9,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
+        <div *ngIf="username">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Following</a>
+          </li>
+        </div>
       </ul>
       <div *ngIf="username; else login">
         <h5 class="d-inline mr-2">{{ username }}</h5>

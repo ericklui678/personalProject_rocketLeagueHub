@@ -36,6 +36,7 @@ export class RegisterComponent{
         this.email_exists = true;
       } else {
         this._cookie.set('username', obj.username);
+        this._cookie.set('email', obj.email);
         this._nameService.setName(obj.username);
         this._router.navigate(['']);
       }
