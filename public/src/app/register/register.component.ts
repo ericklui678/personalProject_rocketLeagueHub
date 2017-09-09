@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpService } from './../http.service';
 import { Router } from '@angular/router';
+import { UsernameService } from '../username.service';
 
 @Component({
   selector: 'app-register',
@@ -22,6 +23,7 @@ export class RegisterComponent{
   constructor(
     private _cookie: CookieService,
     private _http: HttpService,
+    private _nameService: UsernameService,
     private _router: Router,
   ) { }
 
@@ -34,6 +36,7 @@ export class RegisterComponent{
         this.email_exists = true;
       } else {
         this._cookie.set('username', obj.username);
+        this._nameService.setName(obj.username);
         this._router.navigate(['']);
       }
     })

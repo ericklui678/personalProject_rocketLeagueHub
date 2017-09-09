@@ -11,6 +11,8 @@ import { NavsearchComponent } from './navsearch/navsearch.component'
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { UsernameService } from './username.service';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +26,7 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     HttpModule,
   ],
-  providers: [HttpService, CookieService],
+  providers: [HttpService, CookieService, UsernameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
