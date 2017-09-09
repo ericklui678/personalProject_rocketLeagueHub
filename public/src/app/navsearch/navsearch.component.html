@@ -29,7 +29,16 @@
         <h3>{{ stats.name }}</h3>
       </div>
       <div class="col text-right">
-        <button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Follow</button>
+        <div *ngIf="username; else disabled">
+          <button class="btn btn-success">
+            <i class="fa fa-plus" aria-hidden="true"></i> Follow
+          </button>
+        </div>
+        <ng-template #disabled>
+          <button class="btn btn-success" disabled>
+            <i class="fa fa-plus" aria-hidden="true"></i> Log in to follow!
+          </button>
+        </ng-template>
       </div>
     </div>
     <div class="row p-3 white-border-bottom">

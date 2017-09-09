@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { HttpService } from './../http.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { HttpService } from './../http.service';
 export class NavsearchComponent{
   platform: [boolean] = [true, false, false]
   user_id: string = ''; // user_id is input from search to be passed to server
+  username = this._cookie.get('username');
   platform_id: string = '1';  // defaults to search steam platform
   found: boolean;
   unranked: string = '/assets/images/ranks/unranked.png';
@@ -54,6 +56,7 @@ export class NavsearchComponent{
 
   constructor(
     private _http: HttpService,
+    private _cookie: CookieService,
   ) { }
 
   onSubmit(form) {
