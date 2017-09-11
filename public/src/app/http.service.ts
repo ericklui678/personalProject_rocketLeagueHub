@@ -34,7 +34,6 @@ export class HttpService {
   }
 
   getFollows(email) {
-    console.log('INSIDE SERVICE', email);
     return this._http.get(email + '/following')
     .map( data => data.json() )
     .toPromise();

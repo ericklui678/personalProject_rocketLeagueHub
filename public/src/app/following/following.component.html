@@ -1,6 +1,80 @@
 <div class="white-border text-white">
   FOLLOWING-COMPONENT
-  <div class="container mt-5">
-    
+  <div *ngIf="found" class="container mt-5">
+    <div *ngFor="let player of following">
+      <div class="container mt-2 black-opacity mb-5">
+        <div class="row p-3">
+          <div class="col col-name">
+            <h3>{{ player.name }}</h3>
+          </div>
+          <div class="col text-right">
+            <button class="btn btn-danger">Unfollow</button>
+          </div>
+        </div>
+        <div class="row p-3">
+          <div class="col-sm col-12 avatar">
+            <img class="img-fluid d-block avatar" src="{{ player.avatar }}" alt="No Avatar">
+          </div>
+          <div class="col-sm col-6 text-center">
+            <h5>Solo</h5>
+            <span class="d-block">{{ player.solo.tier }}</span>
+            <img class="img-fluid" src="{{ player.solo.icon }}">
+            <span class="d-block">{{ player.solo.division }} </span>
+            <span class="d-block">{{ player.solo.rating }} MMR</span>
+            <span class="d-block">{{ player.solo.matches }} matches</span>
+          </div>
+          <div class="col-sm col-6 text-center">
+            <h5>Doubles</h5>
+            <span class="d-block">{{ player.doubles.tier }}</span>
+            <img class="img-fluid" src="{{ player.doubles.icon }}">
+            <span class="d-block">{{ player.doubles.division }} </span>
+            <span class="d-block">{{ player.doubles.rating }} MMR</span>
+            <span class="d-block">{{ player.doubles.matches }} matches</span>
+          </div>
+          <div class="col-sm col-6 text-center">
+            <h5>Solo Standard</h5>
+            <span class="d-block">{{ player.solo_standard.tier }}</span>
+            <img class="img-fluid" src="{{ player.solo_standard.icon }}">
+            <span class="d-block">{{ player.solo_standard.division }} </span>
+            <span class="d-block">{{ player.solo_standard.rating }} MMR</span>
+            <span class="d-block">{{ player.solo_standard.matches }} matches</span>
+          </div>
+          <div class="col-sm col-6 text-center">
+            <h5>Standard</h5>
+            <span class="d-block">{{ player.standard.tier }}</span>
+            <img class="img-fluid" src="{{ player.standard.icon }}">
+            <span class="d-block">{{ player.standard.division }} </span>
+            <span class="d-block">{{ player.standard.rating }} MMR</span>
+            <span class="d-block">{{ player.standard.matches }} matches</span>
+          </div>
+        </div>
+        <div class="row p-3">
+          <div class="col-sm col-4 text-center">
+            <img class="img-fluid" src="/assets/images/stats/wins.png">
+            <span class="d-block">{{ player.wins }} Wins</span>
+          </div>
+          <div class="col-sm col-4 text-center">
+            <img class="img-fluid" src="/assets/images/stats/goals.png">
+            <span class="d-block">{{ player.goals }} Goals</span>
+          </div>
+          <div class="col-sm col-4 text-center">
+            <img class="img-fluid" src="/assets/images/stats/mvps.png">
+            <span class="d-block">{{ player.mvps }} MVPs</span>
+          </div>
+          <div class="col-sm col-4 text-center">
+            <img class="img-fluid" src="/assets/images/stats/saves.png">
+            <span class="d-block">{{ player.saves }} Saves</span>
+          </div>
+          <div class="col-sm col-4 text-center">
+            <img class="img-fluid" src="/assets/images/stats/shots.png">
+            <span class="d-block">{{ player.shots }} Shots</span>
+          </div>
+          <div class="col-sm col-4 text-center">
+            <img class="img-fluid" src="/assets/images/stats/assists.png">
+            <span class="d-block">{{ player.assists }} Assists</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
