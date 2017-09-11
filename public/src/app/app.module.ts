@@ -12,13 +12,15 @@ import { NavsearchComponent } from './navsearch/navsearch.component'
 import { AppRoutingModule } from './app-routing.module';
 
 import { UsernameService } from './username.service';
+import { FollowingComponent } from './following/following.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    NavsearchComponent
+    NavsearchComponent,
+    FollowingComponent
   ],
   imports: [
     AppRoutingModule,

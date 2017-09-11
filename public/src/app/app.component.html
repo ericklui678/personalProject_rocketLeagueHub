@@ -1,7 +1,7 @@
 <div class="white-border">
   APP-COMPONENT
   <nav class="navbar navbar-expand-md navbar-dark black-opacity">
-    <a class="navbar-brand" href="/"><i class="fa fa-home" aria-hidden="true"></i> RLHub</a>
+    <a [routerLink]="['/']" class="navbar-brand"><i class="fa fa-home" aria-hidden="true"></i> RLHub</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -11,7 +11,7 @@
       <ul class="navbar-nav mr-auto">
         <div *ngIf="username">
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="fa fa-heart" aria-hidden="true"></i> Following</a>
+            <a [routerLink]="['/following']" class="nav-link"><i class="fa fa-heart" aria-hidden="true"></i> Following</a>
           </li>
         </div>
       </ul>

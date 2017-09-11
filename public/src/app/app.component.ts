@@ -41,6 +41,7 @@ export class AppComponent {
         this._cookie.set('username', obj.username);
         this._cookie.set('email', obj.email);
         this._nameService.setName(obj.username);
+        this._router.navigate(['']);
       }
     })
     .catch( err => {
@@ -51,6 +52,7 @@ export class AppComponent {
   logout() {
     this._cookie.deleteAll();
     this._nameService.clearName();
+    this._router.navigate(['']);
   }
 
   ngOnDestroy() {

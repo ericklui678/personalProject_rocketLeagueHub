@@ -20,6 +20,8 @@ export class NavsearchComponent{
 
   stats = {
     'name': '',
+    'uniqueId': '',
+    'platform': 0,
     'avatar': '',
     'solo': {
       'tier': 'Unranked',
@@ -63,6 +65,21 @@ export class NavsearchComponent{
     private _nameService: UsernameService,
   ) {
     this.subscription = this._nameService.getName().subscribe(name => { this.username = name; })
+  }
+
+  followButtonClicked() {
+    let follow = {
+      'email': this._cookie.get('email'),
+      'uniqueId': this.stats.uniqueId,
+      'platform': this.stats.platform.toString(),
+    }
+    this._http.addFollow(follow)
+    .then(obj => {
+      console.log(obj);
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
   onSubmit(form) {
@@ -137,6 +154,8 @@ export class NavsearchComponent{
     } else { // else reset stats if player did not compete in season 5
       this.stats = {
         'name': '',
+        'uniqueId': '',
+        'platform': 0,
         'avatar': '',
         'solo': {
           'tier': 'Unranked',
@@ -176,6 +195,8 @@ export class NavsearchComponent{
     }
 
     this.stats.name = obj.displayName;
+    this.stats.uniqueId = obj.uniqueId;
+    this.stats.platform = obj.platform.id;
     this.stats.avatar = obj.avatar;
 
     this.stats.assists = obj.stats.assists;

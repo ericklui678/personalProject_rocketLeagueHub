@@ -22,8 +22,20 @@ export class HttpService {
   }
 
   loginUser(obj) {
-    console.log('INSIDE SERVICE:', obj);
     return this._http.post('/user/login', obj)
+    .map( data => data.json() )
+    .toPromise();
+  }
+
+  addFollow(obj) {
+    return this._http.post('/user/follow', obj)
+    .map( data => data.json() )
+    .toPromise();
+  }
+
+  getFollows(email) {
+    console.log('INSIDE SERVICE', email);
+    return this._http.get(email + '/following')
     .map( data => data.json() )
     .toPromise();
   }

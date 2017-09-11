@@ -22,16 +22,57 @@ var UserSchema = new mongoose.Schema({
   username: { type: String, required: [true, 'username required'] },
   email: { type: String, required: [true, 'email required'] },
   password: { type: String, required: [true, 'password required'], minlength: 8 },
-  following: { type: [String] },
+  following: { type: [ {uniqueId: String, platform: String} ] },
 }, { timestamps: true });
 var User = mongoose.model('User', UserSchema);
 
+// get rocket league player data from uniqueId and platformId
 app.get('/player/:uid/:pid', function(req, res) {
   client.getPlayer(req.params.uid, req.params.pid, function(status, data){
     res.json(data);
   })
 });
 
+// get current user's following players
+app.get('/:email/following', function(req, res) {
+  var following = [];
+  User.findOne({email: req.params.email}, function(err, data) {
+    for (var i = 0; i < data.following.length; i++) {
+      client.getPlayer(data.following[i].uniqueId, data.following[i].platform, function(status, player) {
+        if(status === 200) {
+          following.push(player);
+          // send json when all API calls are finished
+          if (following.length === data.following.length) {
+            res.json(following);
+          }
+        }
+      })
+    }
+  })
+})
+
+// Create new following to current user
+app.post('/user/follow', function(req, res) {
+  console.log(req.body);
+  User.findOne({email: req.body.email}, function(err, data) {
+    var user = new User(data);
+    // check if followed rocket league player is already followed by current user
+    for (var i = 0; i < user.following.length; i++) {
+      if (data.following[i].uniqueId === req.body.uniqueId) {
+        res.json( {err: 'You are already following this player'} )
+        return;
+      }
+    }
+    // else append to following array
+    user.following.push({'uniqueId': req.body.uniqueId, 'platform': req.body.platform});
+    user.save(function(err) {
+      if(err) { console.log(err); }
+      else { res.json(user); }
+    })
+  })
+})
+
+// register new user
 app.post('/user/create', function(req, res) {
   User.find({email: req.body.email}, function(err, data) {
     // if user is not found, create user
@@ -49,6 +90,7 @@ app.post('/user/create', function(req, res) {
   });
 })
 
+// logging user
 app.post('/user/login', function(req, res) {
   User.find({email: req.body.email}, function(err, data) {
     // if user is found, check hashed_pw

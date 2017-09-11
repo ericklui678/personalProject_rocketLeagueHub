@@ -30,7 +30,7 @@
       </div>
       <div class="col text-right">
         <div *ngIf="username; else disabled">
-          <button class="btn btn-success">
+          <button (click)="followButtonClicked()" class="btn btn-success">
             <i class="fa fa-plus" aria-hidden="true"></i> Follow
           </button>
         </div>
