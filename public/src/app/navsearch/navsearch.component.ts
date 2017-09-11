@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpService } from './../http.service';
+import { Subscription } from 'rxjs/Subscription';
+import { UsernameService } from '../username.service';
 
 @Component({
   selector: 'app-navsearch',
@@ -8,6 +10,7 @@ import { HttpService } from './../http.service';
   styleUrls: ['./navsearch.component.css']
 })
 export class NavsearchComponent{
+  subscription: Subscription;
   platform: [boolean] = [true, false, false]
   user_id: string = ''; // user_id is input from search to be passed to server
   username = this._cookie.get('username');
@@ -55,9 +58,12 @@ export class NavsearchComponent{
   }
 
   constructor(
-    private _http: HttpService,
     private _cookie: CookieService,
-  ) { }
+    private _http: HttpService,
+    private _nameService: UsernameService,
+  ) {
+    this.subscription = this._nameService.getName().subscribe(name => { this.username = name; })
+  }
 
   onSubmit(form) {
     this._http.passID({ 'uid': this.user_id, 'pid': this.platform_id })
@@ -216,5 +222,9 @@ export class NavsearchComponent{
       '3': 'Division IV',
     }
     return dict[key];
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
