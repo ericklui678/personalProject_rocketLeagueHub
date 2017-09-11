@@ -47,16 +47,23 @@ app.post('/user/create', function(req, res) {
       res.json( {err: 'Email already exists'} )
     }
   });
-  // else hash password and create user
-  // console.log(req.body.password);
-  // bcrypt.hash(req.body.password, saltRounds).then(function(hash) {
-  //   bcrypt.compare(req.body.password, hash).then(function(res) {
-  //     console.log(res);
-  //   })
-  //   bcrypt.compare('12312312', hash).then(function(res) {
-  //     console.log(res);
-  //   })
-  // })
+})
+
+app.post('/user/login', function(req, res) {
+  User.find({email: req.body.email}, function(err, data) {
+    // if user is found, check hashed_pw
+    if (data.length === 1) {
+      bcrypt.compare(req.body.password, data[0].password).then(function(correct_pw) {
+        if (correct_pw) {
+          res.json(data[0]);
+        } else {
+          res.json({err: 'Incorrect password'});
+        }
+      })
+    } else {
+      res.json({err: 'Email has not been registered'});
+    }
+  })
 })
 
 var server = app.listen(app.get('port'), function() {

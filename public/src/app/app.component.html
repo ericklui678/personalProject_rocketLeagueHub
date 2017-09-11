@@ -22,10 +22,22 @@
         </button>
       </div>
       <ng-template #login>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" name="email" placeholder="Email">
-          <input class="form-control mr-sm-2" type="text" name="password" placeholder="Password">
-          <button class="btn btn-outline-primary my-2 my-sm-0 mr-2" type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
+        <form (submit)="logon(formData)" #formData="ngForm" class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" name="email" placeholder="Email"
+          [(ngModel)]="user.email"
+          #email="ngModel"
+          required
+          pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$">
+          <input class="form-control mr-sm-2" type="password" name="password" placeholder="Password"
+          [(ngModel)]="user.password"
+          #password="ngModel"
+          required
+          minlength="8">
+          <button class="btn btn-outline-primary my-2 my-sm-0 mr-2"
+            type="submit"
+            [disabled]="!formData.valid">
+            <i class="fa fa-sign-in" aria-hidden="true"></i> Login
+          </button>
         </form>
         <button (click)="register()" class="btn btn-outline-success my-2 my-sm-0"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up?</button>
       </ng-template>

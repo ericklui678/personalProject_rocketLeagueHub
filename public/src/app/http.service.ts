@@ -20,4 +20,11 @@ export class HttpService {
     .map( data => data.json() )
     .toPromise();
   }
+
+  loginUser(obj) {
+    console.log('INSIDE SERVICE:', obj);
+    return this._http.post('/user/login', obj)
+    .map( data => data.json() )
+    .toPromise();
+  }
 }
