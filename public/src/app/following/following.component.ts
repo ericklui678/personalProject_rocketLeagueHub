@@ -1,11 +1,15 @@
+import { CacheService, CacheStoragesEnum } from 'ng2-cache/ng2-cache';
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpService } from '../http.service';
 
+declare var BUILD_VERSION: string;
+
 @Component({
   selector: 'app-following',
   templateUrl: './following.component.html',
-  styleUrls: ['./following.component.css']
+  styleUrls: ['./following.component.css'],
+  providers: [ CacheService ]
 })
 export class FollowingComponent implements OnInit {
   found: boolean = false;
@@ -13,9 +17,15 @@ export class FollowingComponent implements OnInit {
   unranked: string = '/assets/images/ranks/unranked.png';
 
   constructor(
+    private _cacheService: CacheService,
     private _cookie: CookieService,
     private _http: HttpService,
   ) { }
+
+  public func() {
+    // set global prefix as build version
+    this._cacheService.setGlobalPrefix(BUILD_VERSION);
+  }
 
   ngOnInit() {
     this.getFollows();
@@ -34,14 +44,20 @@ export class FollowingComponent implements OnInit {
   }
 
   getFollows() {
-    this._http.getFollows(this._cookie.get('email'))
-    .then( obj => {
-      console.log('FROM SERVER', obj);
-      this.setUserStats(obj);
-    })
-    .catch( err => {
-      console.log(err);
-    })
+    let exists: boolean = this._cacheService.exists('follows');
+    if (exists) {
+      this.following = this._cacheService.get('follows');
+      this.found = true;
+    } else {
+      this._http.getFollows(this._cookie.get('email'))
+      .then(obj => {
+        console.log('FROM SERVER', obj);
+        this.setUserStats(obj);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
   }
 
   resetStats() {
@@ -147,6 +163,9 @@ export class FollowingComponent implements OnInit {
     }
     console.log('FOLLOWING', this.following);
     this.found = true;
+
+    // save follows to cache, returns true if successful
+    let result: boolean = this._cacheService.set('follows', this.following)
   }
 
   getTier(key) {
