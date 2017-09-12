@@ -142,6 +142,7 @@ app.post('/user/login', function(req, res) {
 })
 
 app.get('*', function(req, res) {
+  console.log(__dirname);
   res.sendFile(path.resolve('public/dist/index.html'));
 })
 
