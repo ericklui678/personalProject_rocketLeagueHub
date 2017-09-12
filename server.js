@@ -14,7 +14,18 @@ app.use(bodyParser.json());
 app.set('port', (process.env.PORT || port));
 app.use(express.static(__dirname + '/public/dist'));
 
-mongoose.connect('mongodb://localhost/rocketleague');
+var uristring =
+process.env.MONGOLAB_URI ||
+process.env.MONGOHQ_URL ||
+'mongodb://heroku_ss5v8s6t:rnv16h7o9p024f0pbik0h6a5tl@ds135594.mlab.com:35594/heroku_ss5v8s6t'
+
+mongoose.connect(uristring, function (err, res) {
+  if (err) {
+    console.log('failed to connect to db');
+  } else {
+    console.log('Successfully db connection');
+  }
+})
 
 var Schema = mongoose.Schema;
 
