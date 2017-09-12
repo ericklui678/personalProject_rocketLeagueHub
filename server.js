@@ -18,7 +18,7 @@ app.use(express.static(__dirname + '/public/dist'));
 var uristring =
 process.env.MONGOLAB_URI ||
 process.env.MONGOHQ_URL ||
-'mongodb://heroku_ss5v8s6t:rnv16h7o9p024f0pbik0h6a5tl@ds135594.mlab.com:35594/heroku_ss5v8s6t'
+'mongodb://heroku_bn7zds2l:qtua3voa2rvsv0jdu7j04kdhpo@ds135534.mlab.com:35534/heroku_bn7zds2l'
 
 mongoose.connect(uristring, function (err, res) {
   if (err) {
