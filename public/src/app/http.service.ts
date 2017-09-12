@@ -40,7 +40,6 @@ export class HttpService {
   }
 
   deleteFollow(obj) {
-    console.log('INSIDE SERVICE', obj);
     return this._http.post('/user/unfollow/', obj)
     .map( data=> data.json() )
     .toPromise();
