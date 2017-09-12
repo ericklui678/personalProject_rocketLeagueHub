@@ -83,11 +83,17 @@ export class NavsearchComponent{
       'uniqueId': this.stats.uniqueId,
       'platform': this.stats.platform.toString(),
     }
+    let exists: boolean = this._cacheService.exists('follows');
+    if (exists) {
+      var following = this._cacheService.get('follows');
+      following.push(this.stats);
+      this._cacheService.set('follows', following);
+      console.log('AFTER HITTING FOLLOW', this._cacheService.get('follows'));
+    }
     this._http.addFollow(follow)
     .then(obj => {
       console.log(obj);
-      this._cacheService.removeAll()
-      // console.log('CURRENT FOUND PLAYER', this.stats);
+      // this._cacheService.removeAll()
     })
     .catch(err => {
       console.log(err);

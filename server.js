@@ -37,10 +37,10 @@ app.get('/player/:uid/:pid', function(req, res) {
 app.post('/user/unfollow', function(req, res) {
   User.findOne({email: req.body.email}, function(err, data) {
     var user = new User(data);
-    console.log(req.body.id);
-    console.log(typeof(req.body.id));
+    console.log('ID', req.body.id);
+    console.log('REMOVING', user.following[req.body.id]);
     user.following.splice(req.body.id, 1);
-    console.log('FOLLOWING', user.following);
+    console.log('AFTER DELETE', user.following);
     user.save(function(err){
       if(err) { console.log(err); }
       else { res.json(user); }
@@ -56,6 +56,7 @@ app.get('/:email/following', function(req, res) {
       client.getPlayer(data.following[i].uniqueId, data.following[i].platform, function(status, player) {
         if(status === 200) {
           console.log(status);
+          console.log(player);
           following.push(player);
           // send json when all API calls are finished
           if (following.length === data.following.length) {

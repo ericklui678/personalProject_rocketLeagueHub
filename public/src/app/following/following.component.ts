@@ -33,11 +33,18 @@ export class FollowingComponent implements OnInit {
 
   unfollow(player) {
     let index = this.following.indexOf(player);
+    console.log(index);
+    console.log('REMOVED', player);
+    
+    
+    // update cache to remove specific player after unfollow
     this.following.splice(index, 1);
+    this._cacheService.set('follows', this.following);
+    console.log('CURRENT FOLLOWS', this.following);
+    // delete followed player in database
     this._http.deleteFollow({'email': this._cookie.get('email'), 'id': index})
     .then( obj => {
       console.log('DELETED FROM', obj);
-      this._cacheService.removeAll();
     })
     .catch( err => {
       console.log(err);
@@ -48,6 +55,7 @@ export class FollowingComponent implements OnInit {
     let exists: boolean = this._cacheService.exists('follows');
     if (exists) {
       this.following = this._cacheService.get('follows');
+      console.log('FROM CACHE', this.following);
       this.found = true;
     } else {
       this._http.getFollows(this._cookie.get('email'))
