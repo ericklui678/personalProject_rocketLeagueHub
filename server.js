@@ -37,10 +37,13 @@ app.get('/player/:uid/:pid', function(req, res) {
 app.post('/user/unfollow', function(req, res) {
   User.findOne({email: req.body.email}, function(err, data) {
     var user = new User(data);
-    console.log('ID', req.body.id);
-    console.log('REMOVING', user.following[req.body.id]);
-    user.following.splice(req.body.id, 1);
-    console.log('AFTER DELETE', user.following);
+    for (var i = 0; i < user.following.length; i++) {
+      if (user.following[i].uniqueId === req.body.id) {
+        user.following.splice(i, 1);
+        console.log('AFTER SPLICE', user.following)
+        break;
+      }
+    }
     user.save(function(err){
       if(err) { console.log(err); }
       else { res.json(user); }

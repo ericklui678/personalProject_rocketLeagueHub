@@ -36,13 +36,12 @@ export class FollowingComponent implements OnInit {
     console.log(index);
     console.log('REMOVED', player);
     
-    
     // update cache to remove specific player after unfollow
     this.following.splice(index, 1);
     this._cacheService.set('follows', this.following);
     console.log('CURRENT FOLLOWS', this.following);
     // delete followed player in database
-    this._http.deleteFollow({'email': this._cookie.get('email'), 'id': index})
+    this._http.deleteFollow({'email': this._cookie.get('email'), 'id': player.uniqueId})
     .then( obj => {
       console.log('DELETED FROM', obj);
     })

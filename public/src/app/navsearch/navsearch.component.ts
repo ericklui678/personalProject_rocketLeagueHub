@@ -93,7 +93,6 @@ export class NavsearchComponent{
     this._http.addFollow(follow)
     .then(obj => {
       console.log(obj);
-      // this._cacheService.removeAll()
     })
     .catch(err => {
       console.log(err);
