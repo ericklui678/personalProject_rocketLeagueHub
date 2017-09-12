@@ -2,6 +2,7 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   bcrypt = require('bcrypt'),
+  path = require('path'),
   saltRounds = 10,
   port = 8000,
   app = express(),
@@ -138,6 +139,10 @@ app.post('/user/login', function(req, res) {
       res.json({err: 'Email has not been registered'});
     }
   })
+})
+
+app.get('*', function(req, res) {
+  res.sendFile(path.resolve('public/dist/index.html'));
 })
 
 var server = app.listen(app.get('port'), function() {
