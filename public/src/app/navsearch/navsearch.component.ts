@@ -85,11 +85,19 @@ export class NavsearchComponent{
     }
     let exists: boolean = this._cacheService.exists('follows');
     if (exists) {
+      // check if it's already in cache
       var following = this._cacheService.get('follows');
+      for (var i = 0; i < following.length; i++) {
+        if (follow.uniqueId === following[i].uniqueId) {
+          console.log('You are already following this player');
+          return;
+        }
+      }
       following.push(this.stats);
       this._cacheService.set('follows', following);
       console.log('AFTER HITTING FOLLOW', this._cacheService.get('follows'));
     }
+    // add to database
     this._http.addFollow(follow)
     .then(obj => {
       console.log(obj);

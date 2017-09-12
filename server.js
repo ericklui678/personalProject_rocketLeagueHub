@@ -55,19 +55,20 @@ app.post('/user/unfollow', function(req, res) {
 app.get('/:email/following', function(req, res) {
   var following = [];
   User.findOne({email: req.params.email}, function(err, data) {
-    for (var i = 0; i < data.following.length; i++) {
-      client.getPlayer(data.following[i].uniqueId, data.following[i].platform, function(status, player) {
-        if(status === 200) {
-          console.log(status);
-          console.log(player);
-          following.push(player);
-          // send json when all API calls are finished
-          if (following.length === data.following.length) {
-            res.json(following);
+    function getFollowData(i) {
+      if (i < data.following.length) {
+        client.getPlayer(data.following[i].uniqueId, data.following[i].platform, function(status, player) {
+          if(status === 200) {
+            console.log(status);
+            following.push(player);
+            getFollowData(i+1);
           }
-        }
-      })
+        })
+      } else {
+        res.json(following);
+      }
     }
+    getFollowData(0);
   })
 })
 
