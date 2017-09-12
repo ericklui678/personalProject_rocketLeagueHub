@@ -21,10 +21,22 @@ export class FollowingComponent implements OnInit {
     this.getFollows();
   }
 
+  unfollow(player) {
+    let index = this.following.indexOf(player);
+    this.following.splice(index, 1);
+    this._http.deleteFollow({'email': this._cookie.get('email'), 'id': index})
+    .then( obj => {
+      console.log('DELETED FROM', obj);
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
+
   getFollows() {
     this._http.getFollows(this._cookie.get('email'))
     .then( obj => {
-      console.log(obj);
+      console.log('FROM SERVER', obj);
       this.setUserStats(obj);
     })
     .catch( err => {
@@ -78,8 +90,8 @@ export class FollowingComponent implements OnInit {
   setUserStats(players) {
     for (var i = 0; i < players.length; i++) {
       // if found player competed in season 5, set stats
+      var stats = this.resetStats();
       if (players[i]['rankedSeasons']['5']) {
-        var stats = this.resetStats();
         let season5 = players[i]['rankedSeasons']['5'];
 
         if (season5['10']) {

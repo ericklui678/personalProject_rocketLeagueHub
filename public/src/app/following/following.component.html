@@ -1,5 +1,5 @@
 <div class="white-border text-white">
-  FOLLOWING-COMPONENT
+  <!-- FOLLOWING-COMPONENT -->
   <div *ngIf="found" class="container mt-5">
     <div *ngFor="let player of following">
       <div class="container mt-2 black-opacity mb-5">
@@ -8,7 +8,7 @@
             <h3>{{ player.name }}</h3>
           </div>
           <div class="col text-right">
-            <button class="btn btn-danger">Unfollow</button>
+            <button (click)="unfollow(player)" class="btn btn-danger">Unfollow</button>
           </div>
         </div>
         <div class="row p-3">

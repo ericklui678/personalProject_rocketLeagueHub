@@ -33,6 +33,21 @@ app.get('/player/:uid/:pid', function(req, res) {
   })
 });
 
+// unfollow player from current user
+app.post('/user/unfollow', function(req, res) {
+  User.findOne({email: req.body.email}, function(err, data) {
+    var user = new User(data);
+    console.log(req.body.id);
+    console.log(typeof(req.body.id));
+    user.following.splice(req.body.id, 1);
+    console.log('FOLLOWING', user.following);
+    user.save(function(err){
+      if(err) { console.log(err); }
+      else { res.json(user); }
+    })
+  })
+})
+
 // get current user's following players
 app.get('/:email/following', function(req, res) {
   var following = [];
@@ -40,6 +55,7 @@ app.get('/:email/following', function(req, res) {
     for (var i = 0; i < data.following.length; i++) {
       client.getPlayer(data.following[i].uniqueId, data.following[i].platform, function(status, player) {
         if(status === 200) {
+          console.log(status);
           following.push(player);
           // send json when all API calls are finished
           if (following.length === data.following.length) {

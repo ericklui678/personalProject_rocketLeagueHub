@@ -39,12 +39,8 @@ span {
 }
 
 .white-border {
-    border: 3px solid white;
+    /* border: 3px solid white; */
 } 
-
-/* .container {
-    border: 3px solid orange;
-} */
 
 .error {
     border-radius: 3px;
