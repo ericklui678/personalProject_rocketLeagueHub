@@ -37,6 +37,7 @@ export class FollowingComponent implements OnInit {
     this._http.deleteFollow({'email': this._cookie.get('email'), 'id': index})
     .then( obj => {
       console.log('DELETED FROM', obj);
+      this._cacheService.removeAll();
     })
     .catch( err => {
       console.log(err);

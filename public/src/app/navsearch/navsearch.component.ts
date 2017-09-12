@@ -1,13 +1,17 @@
+import { CacheService, CacheStoragesEnum } from 'ng2-cache/ng2-cache';
 import { Component, OnDestroy } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpService } from './../http.service';
 import { Subscription } from 'rxjs/Subscription';
 import { UsernameService } from '../username.service';
 
+declare var BUILD_VERSION: string;
+
 @Component({
   selector: 'app-navsearch',
   templateUrl: './navsearch.component.html',
-  styleUrls: ['./navsearch.component.css']
+  styleUrls: ['./navsearch.component.css'],
+  providers: [ CacheService ]
 })
 export class NavsearchComponent{
   subscription: Subscription;
@@ -60,11 +64,17 @@ export class NavsearchComponent{
   }
 
   constructor(
+    private _cacheService: CacheService,
     private _cookie: CookieService,
     private _http: HttpService,
     private _nameService: UsernameService,
   ) {
     this.subscription = this._nameService.getName().subscribe(name => { this.username = name; })
+  }
+
+  public func() {
+    // set global prefix as build version
+    this._cacheService.setGlobalPrefix(BUILD_VERSION);
   }
 
   followButtonClicked() {
@@ -76,6 +86,8 @@ export class NavsearchComponent{
     this._http.addFollow(follow)
     .then(obj => {
       console.log(obj);
+      this._cacheService.removeAll()
+      // console.log('CURRENT FOUND PLAYER', this.stats);
     })
     .catch(err => {
       console.log(err);
