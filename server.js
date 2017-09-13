@@ -17,20 +17,20 @@ app.use(bodyParser.json());
 app.set('port', (process.env.PORT || port));
 app.use(express.static(__dirname + '/public/dist'));
 
-// var uristring =
-// process.env.MONGOLAB_URI ||
-// process.env.MONGOHQ_URL ||
-// 'mongodb://heroku_bn7zds2l:qtua3voa2rvsv0jdu7j04kdhpo@ds135534.mlab.com:35534/heroku_bn7zds2l'
-//
-// mongoose.connect(uristring, function (err, res) {
-//   if (err) {
-//     console.log('failed to connect to db');
-//   } else {
-//     console.log('Successfully db connection');
-//   }
-// })
+var uristring =
+process.env.MONGOLAB_URI ||
+process.env.MONGOHQ_URL ||
+'mongodb://heroku_2httdg95:ek48ergjhmeoq2in4es72dk210@ds135234.mlab.com:35234/heroku_2httdg95'
 
-mongoose.connect('mongodb://localhost/rocketleague');
+mongoose.connect(uristring, function (err, res) {
+  if (err) {
+    console.log('failed to connect to db');
+  } else {
+    console.log('Successfully db connection');
+  }
+})
+
+// mongoose.connect('mongodb://localhost/rocketleague');
 
 var Schema = mongoose.Schema;
 
