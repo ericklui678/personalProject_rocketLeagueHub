@@ -10,12 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^1.0.3",
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
     "mongoose": "^4.11.10",
     "ngx-cookie-service": "^1.0.8",
-    "rls-api": "^1.0.2"
+    "rls-api": "^1.0.2",
+    "scrypt": "^6.0.3"
   },
   "engines": {
     "node": "8.4.0",

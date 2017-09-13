@@ -1,7 +1,9 @@
 var express = require('express'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
-  bcrypt = require('bcrypt'),
+  scrypt = require('scrypt'),
+  scryptParameters = scrypt.paramsSync(0.1);
+  // bcrypt = require('bcrypt'),
   path = require('path'),
   saltRounds = 10,
   port = 8000,
@@ -15,25 +17,27 @@ app.use(bodyParser.json());
 app.set('port', (process.env.PORT || port));
 app.use(express.static(__dirname + '/public/dist'));
 
-var uristring =
-process.env.MONGOLAB_URI ||
-process.env.MONGOHQ_URL ||
-'mongodb://heroku_bn7zds2l:qtua3voa2rvsv0jdu7j04kdhpo@ds135534.mlab.com:35534/heroku_bn7zds2l'
+// var uristring =
+// process.env.MONGOLAB_URI ||
+// process.env.MONGOHQ_URL ||
+// 'mongodb://heroku_bn7zds2l:qtua3voa2rvsv0jdu7j04kdhpo@ds135534.mlab.com:35534/heroku_bn7zds2l'
+//
+// mongoose.connect(uristring, function (err, res) {
+//   if (err) {
+//     console.log('failed to connect to db');
+//   } else {
+//     console.log('Successfully db connection');
+//   }
+// })
 
-mongoose.connect(uristring, function (err, res) {
-  if (err) {
-    console.log('failed to connect to db');
-  } else {
-    console.log('Successfully db connection');
-  }
-})
+mongoose.connect('mongodb://localhost/rocketleague');
 
 var Schema = mongoose.Schema;
 
 var UserSchema = new mongoose.Schema({
   username: { type: String, required: [true, 'username required'] },
   email: { type: String, required: [true, 'email required'] },
-  password: { type: String, required: [true, 'password required'], minlength: 8 },
+  password: { type: Object, required: [true, 'password required'], minlength: 8 },
   following: { type: [ {uniqueId: String, platform: String} ] },
 }, { timestamps: true });
 var User = mongoose.model('User', UserSchema);
@@ -110,13 +114,25 @@ app.post('/user/create', function(req, res) {
   User.find({email: req.body.email}, function(err, data) {
     // if user is not found, create user
     if (data.length === 0) {
-      bcrypt.hash(req.body.password, saltRounds).then(function(hash) {
-        req.body.password = hash;
+      try {
+        // kdfResult is the hashed password
+        req.body.password = scrypt.kdfSync(req.body.password, scryptParameters).toString('Base64');
         User.create(req.body, function(err, data) {
           if (err) { console.log(err); }
           else { res.json(data); }
         })
-      })
+      }
+      catch(err) {
+        console.log(err);
+      }
+
+      // bcrypt.hash(req.body.password, saltRounds).then(function(hash) {
+      //   req.body.password = hash;
+      //   User.create(req.body, function(err, data) {
+      //     if (err) { console.log(err); }
+      //     else { res.json(data); }
+      //   })
+      // })
     } else {
       res.json( {err: 'Email already exists'} )
     }
@@ -128,13 +144,23 @@ app.post('/user/login', function(req, res) {
   User.find({email: req.body.email}, function(err, data) {
     // if user is found, check hashed_pw
     if (data.length === 1) {
-      bcrypt.compare(req.body.password, data[0].password).then(function(correct_pw) {
-        if (correct_pw) {
+      try {
+        let correct = scrypt.verifyKdfSync(new Buffer(data[0].password, 'Base64'), req.body.password)
+        if (correct) {
           res.json(data[0]);
         } else {
           res.json({err: 'Incorrect password'});
         }
-      })
+      } catch(err) {
+        console.log(err);
+      }
+      // bcrypt.compare(req.body.password, data[0].password).then(function(correct_pw) {
+      //   if (correct_pw) {
+      //     res.json(data[0]);
+      //   } else {
+      //     res.json({err: 'Incorrect password'});
+      //   }
+      // })
     } else {
       res.json({err: 'Email has not been registered'});
     }
