@@ -2,7 +2,7 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   bcrypt = require('bcrypt'),
-  // path = require('path'),
+  path = require('path'),
   saltRounds = 10,
   port = 8000,
   app = express(),
@@ -141,10 +141,9 @@ app.post('/user/login', function(req, res) {
   })
 })
 
-// app.get('*', function(req, res) {
-//   console.log(__dirname);
-//   res.sendFile(path.resolve('public/dist/index.html'));
-// })
+app.get('*', function(req, res) {
+  res.sendFile(path.resolve('public/dist/index.html'));
+})
 
 var server = app.listen(app.get('port'), function() {
   console.log('Running on port', app.get('port'));
