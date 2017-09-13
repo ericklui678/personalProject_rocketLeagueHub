@@ -3,7 +3,6 @@ var express = require('express'),
   mongoose = require('mongoose'),
   scrypt = require('scrypt'),
   scryptParameters = scrypt.paramsSync(0.1);
-  // bcrypt = require('bcrypt'),
   path = require('path'),
   saltRounds = 10,
   port = 8000,
@@ -29,8 +28,6 @@ mongoose.connect(uristring, function (err, res) {
     console.log('Successfully db connection');
   }
 })
-
-// mongoose.connect('mongodb://localhost/rocketleague');
 
 var Schema = mongoose.Schema;
 
@@ -125,14 +122,6 @@ app.post('/user/create', function(req, res) {
       catch(err) {
         console.log(err);
       }
-
-      // bcrypt.hash(req.body.password, saltRounds).then(function(hash) {
-      //   req.body.password = hash;
-      //   User.create(req.body, function(err, data) {
-      //     if (err) { console.log(err); }
-      //     else { res.json(data); }
-      //   })
-      // })
     } else {
       res.json( {err: 'Email already exists'} )
     }
@@ -154,13 +143,6 @@ app.post('/user/login', function(req, res) {
       } catch(err) {
         console.log(err);
       }
-      // bcrypt.compare(req.body.password, data[0].password).then(function(correct_pw) {
-      //   if (correct_pw) {
-      //     res.json(data[0]);
-      //   } else {
-      //     res.json({err: 'Incorrect password'});
-      //   }
-      // })
     } else {
       res.json({err: 'Email has not been registered'});
     }
