@@ -123,7 +123,7 @@ export class NavsearchComponent{
           this.found = false;
           this.error.code = obj.code;
           if (obj.code === 404) {
-            this.error.msg = "Sorry, we can't find specified player";
+            this.error.msg = "Sorry, we can't find specified player. Try entering a steam community id (e.g. 76561197988132185)";
           } else if (obj.code === 500 || obj.code === 503) {
             this.error.msg = "Rocket League API server is currently under maintenance. Please check again later";
           }
