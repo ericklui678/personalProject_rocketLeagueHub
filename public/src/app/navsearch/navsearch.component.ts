@@ -108,9 +108,11 @@ export class NavsearchComponent{
   }
 
   onSubmit(form) {
+    console.log('Search clicked')
     this._http.passID({ 'uid': this.user_id, 'pid': this.platform_id })
       .then(obj => {
         if (obj.code === 400 || obj.code === 404 || obj.code === 500) {
+          console.log('STATUS', obj.code);
           this.found = false;
         } else {
           console.log('API DATA', obj);
