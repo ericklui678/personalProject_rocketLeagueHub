@@ -42,6 +42,8 @@ var User = mongoose.model('User', UserSchema);
 // get rocket league player data from uniqueId and platformId
 app.get('/player/:uid/:pid', function(req, res) {
   client.getPlayer(req.params.uid, req.params.pid, function(status, data){
+    console.log('STATUS', status);
+    console.log('DATA', data)
     res.json(data);
   })
 });
