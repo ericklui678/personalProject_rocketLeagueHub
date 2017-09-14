@@ -15,12 +15,16 @@ declare var BUILD_VERSION: string;
 })
 export class NavsearchComponent{
   subscription: Subscription;
-  platform: [boolean] = [true, false, false]
+  platform: [boolean] = [true, false, false] // switch for toggling platforms
   user_id: string = ''; // user_id is input from search to be passed to server
   username = this._cookie.get('username');
   platform_id: string = '1';  // defaults to search steam platform
-  found: boolean;
+  found: boolean; // displays data if found
   unranked: string = '/assets/images/ranks/unranked.png';
+  error = {
+    'code': 0,
+    'msg': '',
+  };
 
   stats = {
     'name': '',
@@ -111,13 +115,18 @@ export class NavsearchComponent{
     console.log('Search clicked')
     this._http.passID({ 'uid': this.user_id, 'pid': this.platform_id })
       .then(obj => {
-        if (obj.code === 400 || obj.code === 404 || obj.code === 500) {
-          console.log('STATUS', obj.code);
-          this.found = false;
-        } else {
+        if (obj.code === 200) {
           console.log('API DATA', obj);
           this.found = true;
           this.setUserStats(obj);
+        } else {
+          this.found = false;
+          this.error.code = obj.code;
+          if (obj.code === 404) {
+            this.error.msg = "Sorry, we can't find specified player";
+          } else if (obj.code === 500 || obj.code === 503) {
+            this.error.msg = "Rocket League API server is currently under maintenance. Please check again later";
+          }
         }
       })
       .catch(err => {

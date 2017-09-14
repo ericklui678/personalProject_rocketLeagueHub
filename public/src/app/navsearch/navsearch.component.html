@@ -17,7 +17,7 @@
     </form>
     <div class="row mt-2">
       <div *ngIf="found === false" class="error col bg-danger text-white pt-2">
-        <span>Sorry, we can't find the specified player. Try entering a steam community id (e.g. 76561197988132185)</span>
+        <span>Error {{ error.code }} - {{ error.msg }}</span>
       </div>
     </div>
   </div>
