@@ -115,17 +115,18 @@ export class NavsearchComponent{
     console.log('Search clicked')
     this._http.passID({ 'uid': this.user_id, 'pid': this.platform_id })
       .then(obj => {
-        if (obj.code === 200) {
+        console.log(obj);
+        if (obj.uniqueId) {
           console.log('API DATA', obj);
           this.found = true;
           this.setUserStats(obj);
         } else {
           this.found = false;
           this.error.code = obj.code;
-          if (obj.code === 404) {
-            this.error.msg = "Sorry, we can't find specified player. Try entering a steam community id (e.g. 76561197988132185)";
+          if (obj.code === 400 || obj.code === 404) {
+            this.error.msg = "Sorry, we can't find specified player. Try entering another specific id (E.G. KronoviRL, Rizzotv, ItzSizz)";
           } else if (obj.code === 500 || obj.code === 503) {
-            this.error.msg = "Rocket League API server is currently under maintenance. Please check again later";
+            this.error.msg = "There was a problem with the Rocket League Stats API. Try entering another specific id (E.G. KronoviRL, Rizzotv, ItzSizz)";
           }
         }
       })

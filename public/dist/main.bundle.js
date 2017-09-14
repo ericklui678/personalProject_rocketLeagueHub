@@ -319,6 +319,7 @@ var FollowingComponent = (function () {
     };
     FollowingComponent.prototype.getFollows = function () {
         var _this = this;
+        console.log('GETTING FOLLOWS');
         var exists = this._cacheService.exists('follows');
         if (exists) {
             this.following = this._cacheService.get('follows');
@@ -326,6 +327,7 @@ var FollowingComponent = (function () {
             this.found = true;
         }
         else {
+            console.log('CACHE DOES NOT EXISTS, GETTING FOLLOWS');
             this._http.getFollows(this._cookie.get('email'))
                 .then(function (obj) {
                 console.log('FROM SERVER', obj);
@@ -698,7 +700,8 @@ var NavsearchComponent = (function () {
         console.log('Search clicked');
         this._http.passID({ 'uid': this.user_id, 'pid': this.platform_id })
             .then(function (obj) {
-            if (obj.code === 200) {
+            console.log(obj);
+            if (obj.uniqueId) {
                 console.log('API DATA', obj);
                 _this.found = true;
                 _this.setUserStats(obj);
@@ -706,11 +709,11 @@ var NavsearchComponent = (function () {
             else {
                 _this.found = false;
                 _this.error.code = obj.code;
-                if (obj.code === 404) {
-                    _this.error.msg = "Sorry, we can't find specified player";
+                if (obj.code === 400 || obj.code === 404) {
+                    _this.error.msg = "Sorry, we can't find specified player. Try entering another specific id (E.G. KronoviRL, Rizzotv, ItzSizz)";
                 }
                 else if (obj.code === 500 || obj.code === 503) {
-                    _this.error.msg = "Rocket League API server is currently under maintenance. Please check again later";
+                    _this.error.msg = "There was a problem with the Rocket League Stats API. Try entering another specific id (E.G. KronoviRL, Rizzotv, ItzSizz)";
                 }
             }
         })

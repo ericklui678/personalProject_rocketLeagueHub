@@ -44,7 +44,7 @@ span {
 
 .error {
     border-radius: 3px;
-    height: 43px;
+    padding: 10px;
 }
 
 .bg-blue {

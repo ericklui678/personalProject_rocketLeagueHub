@@ -51,12 +51,14 @@ export class FollowingComponent implements OnInit {
   }
 
   getFollows() {
+    console.log('GETTING FOLLOWS');
     let exists: boolean = this._cacheService.exists('follows');
     if (exists) {
       this.following = this._cacheService.get('follows');
       console.log('FROM CACHE', this.following);
       this.found = true;
     } else {
+      console.log('CACHE DOES NOT EXISTS, GETTING FOLLOWS');
       this._http.getFollows(this._cookie.get('email'))
       .then(obj => {
         console.log('FROM SERVER', obj);

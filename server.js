@@ -16,6 +16,8 @@ app.use(bodyParser.json());
 app.set('port', (process.env.PORT || port));
 app.use(express.static(__dirname + '/public/dist'));
 
+// mongoose.connect('mongodb://localhost/rocketleague');
+
 var uristring =
 process.env.MONGOLAB_URI ||
 process.env.MONGOHQ_URL ||
@@ -68,11 +70,14 @@ app.post('/user/unfollow', function(req, res) {
 
 // get current user's following players
 app.get('/:email/following', function(req, res) {
+  console.log('SERVER GETTING FOLLOWS');
   var following = [];
   User.findOne({email: req.params.email}, function(err, data) {
+    console.log(data);
     function getFollowData(i) {
       if (i < data.following.length) {
         client.getPlayer(data.following[i].uniqueId, data.following[i].platform, function(status, player) {
+          console.log('Status:', status, 'Player', player);
           if(status === 200) {
             console.log(status);
             following.push(player);
