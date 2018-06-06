@@ -81,7 +81,7 @@ app.post("/user/unfollow", function(req, res) {
   });
 });
 
-function fetchFollowingPlayer(player) {
+function fetchFollowingPlayer(player, i) {
   let { uniqueId, platform } = player;
   return new Promise(resolve => {
     setTimeout(() => {
@@ -89,7 +89,7 @@ function fetchFollowingPlayer(player) {
         console.log("Status: ", status);
         resolve(playerData);
       });
-    }, 1000);
+    }, i * 600);
   });
 }
 
@@ -122,12 +122,12 @@ function fetchFollowingPlayer(player) {
 // get current user's following players
 app.get("/:email/following", function(req, res) {
   User.findOne({ email: req.params.email }, function(err, data) {
-    // console.log(data);
     let { following } = data;
     let promises = [];
 
-    for (let player of following) {
-      promises.push(fetchFollowingPlayer(player));
+    for (let i = 0; i < following.length; i++) {
+      let player = following[i];
+      promises.push(fetchFollowingPlayer(player, i));
     }
 
     Promise.all(promises)
